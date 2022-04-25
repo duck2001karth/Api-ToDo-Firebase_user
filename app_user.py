@@ -46,11 +46,3 @@ new_task = {"name": "Juan Pablo",
 crear_user(new_user, new_task)
 
 
-
-#create_task(users_ref)
-#name_task = input("\n Ingresa el nombre de la tarea: ")
-#create_task(name_task)
-#update_task("paiwIA05qT51TIS1NAXO")       
-#delete_task("paiwIA05qT51TIS1NAXO")     
-
-#get_task_completed()
