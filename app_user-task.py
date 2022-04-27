@@ -18,7 +18,7 @@ db = firestore.client()
 users_ref = db.collection("users")
 #Api web
 API_KEY = "AIzaSyCdtDzFbbJEfJx9A4YPZX9WgQmvJHrZewA"
-
+#-------------------------------------------------------------------#-------------------------------------------------------------------
 def login(email, password):
     credentials = {"email":email,"password":password,"returnSecureToken":True}
     response = requests.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={}".format(API_KEY),data=credentials)
@@ -27,10 +27,7 @@ def login(email, password):
        
        content = response.content
        llave = response.json().keys()
-       print(llave["localId"])
-       
-
-
+       print(llave)
 
     elif response.status_code == 400:
         print(response.content)    
@@ -39,7 +36,7 @@ def login(email, password):
     return response.content
     #print(response.status_code)
     #print(response.content)
-
+#-------------------------------------------------------------------#-------------------------------------------------------------------
 #Leer todos los usuarios
 def get_ref_user(id):
     user_ref = users_ref.document(id)
@@ -51,7 +48,6 @@ def get_ref_user(id):
         print("Usuario no existe")    
         docs_ref = False
     return docs_ref
-
 
     """docs = docs_ref.get()
     for doc in docs:
@@ -103,7 +99,8 @@ def completar_task(ref):
 
 #get_task_completed()
 #-------------------------------------------------------------------
-#login and passoword
+#login and passoword 
+#De modo que el usuario podra ingresar sus datos registrados
 email = input("Ingrese el email (correo electronico): ")
 password = input("Ingrese el password (contraseña): ")
 login(email, password)
