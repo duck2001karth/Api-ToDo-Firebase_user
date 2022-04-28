@@ -1,11 +1,8 @@
-import email
-import re
-from urllib import response
-from certifi import contents
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-import datetime, requests
+import datetime, requests, json
+
 
 #Configuraciones para firebase
 cred = credentials.Certificate("acount_key_api-user.json")
@@ -16,23 +13,22 @@ db = firestore.client()
 
 #Se crea la referencia de la base de datos
 users_ref = db.collection("users")
+tasks_ref = db.collection("tasks")
 #Api web
 API_KEY = "AIzaSyCdtDzFbbJEfJx9A4YPZX9WgQmvJHrZewA"
+
 #-------------------------------------------------------------------#-------------------------------------------------------------------
 def login(email, password):
     credentials = {"email":email,"password":password,"returnSecureToken":True}
     response = requests.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={}".format(API_KEY),data=credentials)
     if response.status_code == 200:
        #print(response.content)
-       
        content = response.content
-       llave = response.json().keys()
-       print(llave)
-
+       data = response.json()
+       print(data["localId"])
     elif response.status_code == 400:
         print(response.content)    
-
-
+   
     return response.content
     #print(response.status_code)
     #print(response.content)
@@ -52,6 +48,9 @@ def get_ref_user(id):
     """docs = docs_ref.get()
     for doc in docs:
         print(f"ID:{doc.id} => DATA:{doc.to_dict()}")"""
+
+#-------------------------------------------------------------------
+
 
 #-------------------------------------------------------------------
 #Leer todo los tasks
